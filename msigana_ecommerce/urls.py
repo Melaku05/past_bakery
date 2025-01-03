@@ -11,8 +11,9 @@ from django.contrib.staticfiles.views import serve
 urlpatterns = [
     path('admin/', admin_site.urls),
     path('', views.home, name='home'),
+    path('services/', include('catering.urls')),
     path('store/', include('store.urls')),
-    path('lookbook/', views.lookbook, name='lookbook'),
+    path('orders/', views.lookbook, name='lookbook'),
     path('blog/', include('blog.urls')),
     path('about-us/', views.about_us, name='about-us'),
     path('contact-us/', include('contact.urls')),

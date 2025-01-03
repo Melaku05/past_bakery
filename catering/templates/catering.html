@@ -1,0 +1,290 @@
+{% extends 'base.html' %} {% load static %} 
+{% block title %}{{footer.company_main_page_title}}{% endblock %} 
+{% block content %}
+
+  
+      <!-- ====== Testimonial Section End -->
+      <section id="contact" class="relative py-10 md:py-[100px] ">
+    
+       <div class="container mx-auto py-12">
+        <h1 class="text-4xl text-green-950 font-bold text-center mb-12 card cinzel">Our Services</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+            <!-- Special Events Catering Card -->
+            <div class="bg-white text-blue-950 rounded-lg shadow-lg p-6 flex flex-col card">
+                <h2 class="text-2xl font-bold mb-4 flex items-center card cinzel">
+                    <i class="fas fa-gem mr-2 card "></i>
+                    Freshly Baked Goods 
+                </h2>
+                <ul class="list-inside mb-4 space-y-2 flex-grow">
+                    <li class="flex items-start volkhov">
+                        <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                        <span> A variety of bread, pastries, cookies, and cakes made with the finest ingredients</span>
+                    </li>
+                    <li class="flex items-start volkhov">
+                        <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                        <span><strong class="text-green-900">Custom Cakes:</strong> Personalized cakes for birthdays, weddings, and special occasions.</span>
+                    </li>
+                  
+                </ul>
+                <div class="relative h-64 mb-6 flex-shrink-0 card">
+                    <img src="{% static '/images/pasty/p1.jpg' %}" alt="Special Events Catering" class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg">
+                    <div class="absolute inset-0 flex items-center justify-center card mt-10">
+                        <button class="cater-now-btn bg-green-950 text-white py-2 px-4 rounded volkhov">Order Now</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Corporate Catering Card -->
+            <div class="bg-white text-blue-950 rounded-lg shadow-lg p-6 flex flex-col card">
+                <h2 class="text-2xl font-bold mb-4 flex items-center card cinzel">
+                    <i class="fas fa-gem mr-2 card"></i>
+                    Snacks and Desserts
+                </h2>
+                <ul class="list-inside mb-4 space-y-2 flex-grow">
+                    <li class="flex items-start volkhov">
+                        <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                        <span>Sweet and savory options perfect for any time of the day</span>
+                    </li>
+                    <li class="flex items-start volkhov">
+                        <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                        <span><strong class="text-green-900">Beverages:</strong> Complement your treats with a selection of hot and cold drinks.</span>
+                    </li>
+                 
+                </ul>
+                <div class="relative h-64 mb-6 flex-shrink-0 card">
+                    <img src="{% static '/images/pasty/02.jpg' %}" alt="Corporate Catering" class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg card">
+                    <div class="absolute inset-0 flex items-center justify-center card">
+                        <button class="cater-now-btn bg-green-950 text-white py-2 px-4 rounded card mt-10 volkhov">Order Now</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Buffet Catering Card -->
+            <div class="bg-white text-blue-950 rounded-lg shadow-lg p-6 flex flex-col card">
+                <h2 class="text-2xl font-bold mb-4 flex items-center card cinzel text-green-800">
+                    <i class="fas fa-gem mr-2 card"></i>
+                    Special Orders
+                </h2>
+                <ul class="list-inside mb-4 space-y-2 flex-grow">
+                  <li class="flex items-start volkhov">
+                    <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                    <span> Self-serve buffet stations with a wide selection of dishes for various events.</span>
+                </li>
+                    <li class="flex items-start volkhov">
+                        <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                        <span><strong class="text-green-900">Gift Packages –:</strong> 
+                           Beautifully packaged baked goods, ideal for gifts and celebrations.</span>
+                    </li>
+                    {% comment %} <li class="flex items-start volkhov">
+                        <i class="fa-solid fa-forward mr-2 mt-1"></i>
+                        <span><strong>Special Orders:</strong> 
+                           Customizable menus to suit your needs and preferences.</span>
+                    </li> {% endcomment %}
+                </ul>
+                <div class="relative h-64 mb-6 flex-shrink-0 card">
+                    <img src="{% static '/images/pasty/p8.jpg' %}" alt="Buffet Catering" class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg card">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <button class="cater-now-btn bg-green-950 text-white py-2 px-4 rounded card mt-10 card volkhov">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+        <div
+          class="absolute left-0 top-0 -z-[1] h-full w-full dark:bg-dark "
+        ></div>
+        <div class="bg-[#E9F9FF]">
+        <div
+          class="absolute left-0 top-0 -z-[1] h-1/2 w-full dark:bg-dark-700 lg:h-[45%] xl:h-1/2 "
+        ></div>
+        <div class=" px-4 md:mx-24 xl:mx-24 2xl:mx-48 bg-[#E9F9FF] melaku">
+          <div class="-mx-4 flex flex-wrap items-center">
+            <div class="w-full px-4 lg:w-7/12 xl:w-8/12">
+              <div class="ud-contact-content-wrapper">
+                <div class="ud-contact-title mb-12 lg:mb-[150px]">
+                  <span
+                    class="mb-6 block text-base font-medium text-dark dark:text-white me"
+                  >
+                    CONTACT US
+                  </span>
+                  <h2
+                    class="text-[33px] font-semibold leading-[1.14] text-dark dark:text-white volkhov"
+                  >
+                  Discover our delightful baked creations
+                  </h2>
+                </div>
+                <div class="mb-12 flex flex-wrap justify-between lg:mb-0">
+                  <div class="mb-8 flex w-[330px] max-w-full">
+                    <div class="mr-6 text-[32px] text-primary">
+                      <svg
+                        width="29"
+                        height="35"
+                        viewBox="0 0 29 35"
+                        class="fill-current text-blue-950"
+                      >
+                        <path
+                          d="M14.5 0.710938C6.89844 0.710938 0.664062 6.72656 0.664062 14.0547C0.664062 19.9062 9.03125 29.5859 12.6406 33.5234C13.1328 34.0703 13.7891 34.3437 14.5 34.3437C15.2109 34.3437 15.8672 34.0703 16.3594 33.5234C19.9688 29.6406 28.3359 19.9062 28.3359 14.0547C28.3359 6.67188 22.1016 0.710938 14.5 0.710938ZM14.9375 32.2109C14.6641 32.4844 14.2812 32.4844 14.0625 32.2109C11.3828 29.3125 2.57812 19.3594 2.57812 14.0547C2.57812 7.71094 7.9375 2.625 14.5 2.625C21.0625 2.625 26.4219 7.76562 26.4219 14.0547C26.4219 19.3594 17.6172 29.2578 14.9375 32.2109Z"
+                        />
+                        <path
+                          d="M14.5 8.58594C11.2734 8.58594 8.59375 11.2109 8.59375 14.4922C8.59375 17.7188 11.2187 20.3984 14.5 20.3984C17.7812 20.3984 20.4062 17.7734 20.4062 14.4922C20.4062 11.2109 17.7266 8.58594 14.5 8.58594ZM14.5 18.4297C12.3125 18.4297 10.5078 16.625 10.5078 14.4375C10.5078 12.25 12.3125 10.4453 14.5 10.4453C16.6875 10.4453 18.4922 12.25 18.4922 14.4375C18.4922 16.625 16.6875 18.4297 14.5 18.4297Z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h5
+                        class="mb-[18px] text-lg font-semibold text-dark dark:text-white me"
+                      >
+                        Our Location
+                      </h5>
+                      <p class="text-base text-body-color dark:text-dark-6 me">
+                         St,Kasanchis, Addis Ababa, Ethiopia 
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mb-8 flex w-[330px] max-w-full">
+                    <div class="mr-6 text-[32px] text-primary">
+                      <svg
+                        width="34"
+                        height="25"
+                        viewBox="0 0 34 25"
+                        class="fill-current text-blue-950"
+                      >
+                        <path
+                          d="M30.5156 0.960938H3.17188C1.42188 0.960938 0 2.38281 0 4.13281V20.9219C0 22.6719 1.42188 24.0938 3.17188 24.0938H30.5156C32.2656 24.0938 33.6875 22.6719 33.6875 20.9219V4.13281C33.6875 2.38281 32.2656 0.960938 30.5156 0.960938ZM30.5156 2.875C30.7891 2.875 31.0078 2.92969 31.2266 3.09375L17.6094 11.3516C17.1172 11.625 16.5703 11.625 16.0781 11.3516L2.46094 3.09375C2.67969 2.98438 2.89844 2.875 3.17188 2.875H30.5156ZM30.5156 22.125H3.17188C2.51562 22.125 1.91406 21.5781 1.91406 20.8672V5.00781L15.0391 12.9922C15.5859 13.3203 16.1875 13.4844 16.7891 13.4844C17.3906 13.4844 17.9922 13.3203 18.5391 12.9922L31.6641 5.00781V20.8672C31.7734 21.5781 31.1719 22.125 30.5156 22.125Z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h5
+                        class="mb-[18px] text-lg font-semibold text-dark dark:text-white me"
+                      >
+                        How Can We Help?
+                      </h5>
+                      <p class="text-base text-body-color dark:text-dark-6 me">
+                        info@pastybakery.com
+                      </p>
+                      <p class="mt-1 text-base text-body-color dark:text-dark-6 me">
+                        contact@pastybakery.com
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full px-4 lg:w-5/12 xl:w-4/12">
+              <div
+                class="wow fadeInUp bg-white px-8 py-10  dark:bg-dark-2 dark:shadow-lg sm:px-10 sm:py-12 md:p-[60px] lg:p-10 lg:px-10 lg:py-12 2xl:p-[60px] shadow-lg rounded-lg"
+                data-wow-delay=".2s
+                "
+              >
+                <h3
+                  class="mb-8 text-2xl font-semibold text-dark dark:text-white md:text-[28px] md:leading-[1.42] volkhov"
+                >
+                  Order Services
+                </h3>
+
+    <form id="catering-form" action="{% url 'catering' %}" method="post">
+        {% csrf_token %}
+        
+        <div class="mb-[11px]">
+            <label for="person" class="mb-4 block text-sm text-body-color dark:text-dark-6">Number of Items*</label>
+            <input type="number" name="number_of_person" min="1" max="20" placeholder="1" required class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6" />
+        </div>
+        <div class="mb-[11px]">
+            <label for="date" class="mb-4 block text-sm text-body-color dark:text-dark-6">Date*</label>
+            <input type="date" name="date" required class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6" />
+        </div>
+        <div class="mb-[11px]">
+          <label for="location" class="mb-4 block text-sm text-body-color dark:text-dark-6">Catering Location*</label>
+          <input type="text" name="location" placeholder="bole Medianalem" required class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6" />
+      </div>
+      
+        <div class="mb-[11px]">
+            <label for="catering_type" class="mb-4 block text-sm text-body-color dark:text-dark-6">Select Services Type*</label>
+            <select name="catering_type" required class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6">
+                <option value="wedding">Wedding Catering</option>
+                <option value="birthday">Birthday Catering</option>
+                <option value="holiday">Holiday Catering</option>
+                <option value="corporate">Corporate Catering</option>
+                <option value="private">Private Party Catering</option>
+                <option value="event">Event Catering</option>
+                <option value="buffet">Buffet Catering</option>
+            </select>
+        </div>
+        <div class="mb-[11px]">
+            <label for="full_name" class="mb-4 block text-sm text-body-color dark:text-dark-6">Full Name*</label>
+            <input type="text" name="full_name" placeholder="Melat Kebede" required class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6" />
+        </div>
+        <div class="mb-[11px]">
+            <label for="email" class="mb-4 block text-sm text-body-color dark:text-dark-6">Email</label>
+            <input type="email" name="email" placeholder="example@yourmail.com" class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6" />
+        </div>
+        <div class="mb-[11px]">
+            <label for="phone" class="mb-4 block text-sm text-body-color dark:text-dark-6">Phone*</label>
+            <input type="text" name="phone" placeholder="+251-995-030-321" required class="w-full border-0 border-b border-[#f1f1f1] bg-transparent pb-3 text-body-color placeholder:text-body-color/60 focus:border-primary focus:outline-none dark:border-dark-3 dark:text-dark-6" />
+        </div>
+        <div class="mb-0">
+            <button type="submit" class="inline-flex items-center justify-center rounded-md bg-blue-950 px-10 py-3 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-blue-dark">Reserve</button>
+        </div>
+    </form> 
+
+    <div id="catering-message" class="mt-4"></div>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+      $('.cater-now-btn').on('click', function(event) {
+          event.preventDefault(); // Prevent the default action
+  
+          // Scroll to the form with added margin
+          $('html, body').animate({
+              scrollTop: $('#catering-form').offset().top - 80 // Adjust the value (e.g., 50) as needed
+          }, 1000, function() {
+              // Once scrolled, submit the form
+              $('#catering-form').submit();
+          });
+      });
+  
+      $('#catering-form').on('submit', function(event) {
+          event.preventDefault();
+          var form = $(this);
+          $.ajax({
+              type: 'POST',
+              url: form.attr('action'),
+              data: form.serialize(),
+              success: function(response) {
+                  $('#catering-message').html('<p class="text-green-500">' + response.message + '</p>');
+                  form[0].reset(); // Reset the form
+              },
+              error: function(xhr) {
+                  var response = xhr.responseJSON;
+                  if (response.errors) {
+                      var errorMessages = '';
+                      $.each(response.errors, function(key, value) {
+                          errorMessages += '<p class="text-red-500">' + value[0] + '</p>';
+                      });
+                      $('#catering-message').html(errorMessages);
+                  } else {
+                      $('#catering-message').html('<p class="text-red-500">Error occurred while processing your request.</p>');
+                  }
+              }
+          });
+      });
+  });
+  
+</script>
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+  
+  
+{% endblock %}

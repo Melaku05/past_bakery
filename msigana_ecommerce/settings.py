@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig', 
     'heads.apps.HeadsConfig',
     'advertizement.apps.AdvertizementConfig',
+    'catering.apps.CateringConfig',
     'nested_admin',
     'theme',
     'django_quill',

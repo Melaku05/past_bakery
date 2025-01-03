@@ -2,11 +2,11 @@
 {% load cache %}
 {% block content %}
 
-<header class="py-4 shadow-sm bg-slate-600">
+<header class="py-4 shadow-sm ">
     <div class="container flex items-center md:justify-between ">
         <a href="{% url 'home' %}" class="brand-wrap w-24 mr-2 md:mr-4  md:ml-2 pl-2 volkhov">
             {% if not footer.nav_company_logo.url %}
-            <p class="text-white merienda">Rome Furniture</p>
+            <p class="text-white merienda">Pasty Bakery</p>
             {% else %}
             <img src="{{footer.nav_company_logo.url}}" alt="Main page image" />
          {% endif %}
@@ -16,11 +16,11 @@
         <nav class="hidden sm:flex space-x-12">
             {% comment %} <a href="{% url 'hours-location' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition">Hours & Location</a> {% endcomment %}
             {% comment %} <a href="{% url 'menus' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition">Services</a> {% endcomment %}
-            <a href="{% url 'store' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition volkhov">Products</a>
-            <a href="{% url 'lookbook' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition volkhov">LookBook</a>
-            <a href="{% url 'about-us' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition volkhov">About Us</a>
-            <a href="{% url 'blog' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition volkhov">Blog</a>
-            <a href="{% url 'contact-us' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition volkhov">Contact Us</a>
+            <a href="{% url 'home' %}" class="text-green-900 text-lg xl:text-xl hover:text-green-950 transition volkhov">Home</a>
+            <a href="{% url 'lookbook' %}" class="text-green-900 text-lg xl:text-xl hover:text-green-950 transition volkhov">Order</a>
+            <a href="{% url 'about-us' %}" class="text-green-900 text-lg xl:text-xl hover:text-green-950 transition volkhov">About Us</a>
+            <a href="{% url 'catering' %}" class="text-green-900 text-lg xl:text-xl hover:text-green-950 transition volkhov">Services</a>
+            <a href="{% url 'contact-us' %}" class="text-green-900 text-lg xl:text-xl hover:text-green-950 transition volkhov">Contact Us</a>
             {% comment %} <a href="{% url 'online-order' %}" class="text-white text-lg xl:text-xl hover:text-slate-200 transition">Online Order</a> {% endcomment %}
         </nav>
         <div class="space-x-4  md:space-x-12 flex items-center pl-64  md:pl-0 ">
@@ -78,7 +78,7 @@
                     });
                 });
             </script>
-            <a href="{% url 'admin:index' %}" class="ml-auto justify-self-end text-white hover:text-slate-200 transition  pr-2 volkhov">
+            <a href="{% url 'admin:index' %}" class="ml-auto justify-self-end text-lg text-green-900 hover:text-green-950 transition  pr-2 volkhov">
                 Login
             </a>
         </div>
@@ -87,16 +87,16 @@
 
     <!-- mobile menubar --> 
     <div
-        class="fixed w-full border-t border-gray-200 shadow-sm bg-slate-100 py-3 bottom-0 left-0 flex gap-28 lg:hidden z-40 px-2 pl-4">
+        class="fixed w-full border-t border-gray-200 shadow-sm bg-green-950 py-3 bottom-0 left-0 flex gap-28 lg:hidden z-40 px-2 pl-4">
         <a href="javascript:void(0)" class="block text-center text-gray-700 hover:text-primary transition relative pr-3">
             <div class="text-xl" id="menuBar">
-                <i class="fas fa-bars text-slate-600-500"></i>
+                <i class="fas fa-bars text-white"></i>
             </div>
-            <div class="text-xs leading-3 text-slate-600">Menu</div>
+            <div class="text-xs leading-3 text-white">Menu</div>
         </a>
     
         <a href="{% url 'home' %}" class="pl-2 relative">
-            <div class="w-12 h-12  font-bold text-lg flex items-center justify-center  text-slate-600 pr-2 volkhov">
+            <div class="w-12 h-12  font-bold text-lg flex items-center justify-center  text-white pr-2 volkhov">
                Home
             </div>
             
@@ -106,7 +106,7 @@
     <!-- mobile menu end -->
 
     <!-- mobile sidebar menu -->
-    <div class="fixed left-0 top-0 w-full h-full z-50 bg-slate-100 bg-opacity-30 shadow hidden" id="mobileMenu">
+    <div class="fixed left-0 top-0 w-full h-full z-50 bg-green-950 bg-opacity-30 shadow hidden" id="mobileMenu">
         <div class="absolute left-0 top-0 w-72 h-full z-50 bg-white shadow">
             <div id="closeMenu"
                 class="text-white hover:text-primary text-lg absolute right-4 top-4 cursor-pointer">
@@ -116,12 +116,12 @@
             <!-- navlink -->
             <div class="flex flex-col pt-8 bg-slate-100 min-h-full">
                
-                <a class="text-lg font-semibold text-black mb-1 font-roboto pl-4 pt-4 volkhov" href="{% url 'home'  %}">Home</a>
-                <a class="text-lg font-semibold text-black mb-1 font-roboto pl-4 pt-4 volkhov" href="{% url 'store' %}">Products</a>
-                <a class="text-lg font-semibold text-black mb-1 volkhov pl-4 pt-4 " href="{% url 'lookbook' %}">LookBook</a>
-                <a class="text-lg font-semibold text-black mb-1 volkhov pl-4 pt-4 " href="{% url 'blog' %}">Blog</a>
-                <a class="text-lg font-semibold text-black mb-1 volkhov pl-4 pt-4" href="{% url 'about-us'  %}">About Us</a>
-                <a class="text-lg font-semibold text-black mb-1 volkhov pl-4 pt-4" href="{% url 'contact-us' %}">Contact Us</a>
+                <a class="text-lg font-semibold text-green-900 mb-1 font-roboto pl-4 pt-4 volkhov" href="{% url 'home'  %}">Home</a>
+                <a class="text-lg font-semibold text-green-900 mb-1 font-roboto pl-4 pt-4 volkhov" href="{% url 'store' %}">Products</a>
+                <a class="text-lg font-semibold text-green-900 mb-1 volkhov pl-4 pt-4 " href="{% url 'lookbook' %}">Order</a>
+                <a class="text-lg font-semibold text-green-900 mb-1 volkhov pl-4 pt-4 " href="{% url 'blog' %}">Services</a>
+                <a class="text-lg font-semibold text-green-900 mb-1 volkhov pl-4 pt-4" href="{% url 'about-us'  %}">About Us</a>
+                <a class="text-lg font-semibold text-green-900 mb-1 volkhov pl-4 pt-4" href="{% url 'contact-us' %}">Contact Us</a>
            
              
             </div>

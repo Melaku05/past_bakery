@@ -30,7 +30,7 @@
                             {% if main_image %}
                                 <img class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110" src="{{ main_image.image.url }}" alt="{{ product.product_name }}">
                                 <div class="absolute inset-0 flex items-center justify-center">
-                                    <span class="text-slate-400 text-sm md:text-2xl font-thin p-2 rounded"><i class="fas fa-star"></i> Rome Furniture</span>
+                                    <span class="text-green-900 text-sm md:text-2xl font-thin p-2 rounded"><i class="fas fa-star"></i> Pasty Bakery</span>
                                 </div>
                             {% endif %}
                             {% endwith %}
@@ -40,7 +40,7 @@
                         <div class=" w-full inline-block volkhov">{{ product.product_name|slice:":16"|capfirst }}</div>
                     </div>
                     <div class="bg-slate-100 hover:text-purple-400 text-center py-1 md:py-2 rounded-b mt-1  w-24 md:w-32">
-                        <div class=" w-full inline-block volkhov">Read More</div>
+                        <div class=" w-full inline-block volkhov text-green-950">Order</div>
                     </div>
                 </div>
               </a>
