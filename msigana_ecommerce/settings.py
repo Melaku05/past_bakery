@@ -17,7 +17,7 @@ SECRET_KEY="django-indesecure-$epx^r=3u8b8ptdfr+yc_3&e)50gr1%-@3jgpl#j-&9&am#$2o
 DEBUG = True
 
 # ALLOWED_HOSTS configuration
-ALLOWED_HOSTS = ["localhost","pasty_bakery.com"]
+ALLOWED_HOSTS = ["localhost","pastybakerytrading.com"]
 
 
 # Application definition
@@ -67,23 +67,23 @@ MIDDLEWARE = [
 MIDDLEWARE = [mw for mw in MIDDLEWARE if mw]
 
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'romefupk_rome_furniture',
-#         'HOST': 'localhost',
-#         'PORT': 3306,
-#         'USER': 'romefupk_rome_furniture',
-#         'PASSWORD': 'Melaku11@#',
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
 #     }
-# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pastybwn_pasty_bakery',
+        'HOST': 'localhost',
+        'PORT': 3306,
+        'USER': 'pastybwn_pasty_bakery',
+        'PASSWORD': 'Melaku11@#',
+    }
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
