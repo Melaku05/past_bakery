@@ -6,8 +6,8 @@ from django.http import Http404
 
 
 class AdminSite(DjangoAdminSite):
-    site_header ='Rome Furniture Login'
-    site_title = 'Rome Furniture Admin'
+    site_header ='Pasty Bakery Login'
+    site_title = 'Pasty Bakery Admin'
 
     def get_app_list(self, request):
         """
