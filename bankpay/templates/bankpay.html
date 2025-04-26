@@ -1,0 +1,95 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title%} Pay with a local Ethiopian bank account at Tanabeles Ecommerce in Addis Ababa, Ethiopia.
+{% endblock %}
+{% block content %}
+    <!-- checkout form -->
+    <div class="container mx-auto pt-4 pb-6 px-4 sm:px-8 md:px-16 lg:px-16 xl:px-48 2xl-px-64 2xl:max-w-full 3xl:w-2/3 md:mt-24">
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <form id="payment-with-bank" method="POST" action="{% url 'pay_with_bank' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3 class="text-lg font-medium capitalize mb-4">
+                Pay with Bank Account
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label for="bank-name" class="block text-sm font-medium text-gray-700">Bank Name</label>
+                    <select id="bank-name" name="bank_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">Select Bank</option> <!-- Add this line -->
+                        {% for bank in banks %}
+                            <option value="{{ bank.name }}">{{ bank.name }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                </div>
+                <div>
+                    <label for="id_phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input id="id_phone_number" type="text" name="phone_number" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ request.user.phone_number|default:'' }}">
+                </div>
+                <div>
+                    <label for="ref-number" class="block text-sm font-medium text-gray-700">Ref Number</label>
+                    <input id="ref-number" type="text" name="ref_number" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="user-bank-account-name" class="block text-sm font-medium text-gray-700">Bank Account Name</label>
+                    <input id="user-bank-account-name" type="text" name="user_bank_account_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ request.user.address|default:'' }}">
+                </div>
+                <div>
+                    <label for="screenshot" class="block text-sm font-medium text-gray-700">Screenshot <span class="text-red-500">*</span></label>
+                    <input id="screenshot" type="file" name="screenshot" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                    <!-- Add a <span> element with a red asterisk to indicate that the field is mandatory -->
+                </div>
+                <button id="submit-payment" type="button" class="bg-blue-500 border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-blue-800 hover:text-primary transition text-sm w-full block text-center">Submit Payment</button>
+            </div>
+        </form>
+        <div class="mb-8">
+            <h3 class="text-lg font-medium capitalize mb-4">Bank Accounts</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {% for bank in banks %}
+                <div class="bg-white rounded-md p-4 shadow-md">
+                    <h4 class="text-lg font-medium mb-2">Bank Name:  {{bank.name}}</h4>
+                    <p class="text-gray-700">Account Number: {{bank.account}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+        <script>
+            $(document).ready(function() {
+                $('#submit-payment').click(function(event) {
+                    // Prevent the default form submission
+                    event.preventDefault();
+        
+                    // Create a FormData object to store form data
+                    var formData = new FormData($('#payment-with-bank')[0]);
+        
+                    // Send an AJAX POST request to your backend server
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url 'pay_with_bank' %}',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.success) {
+                                // Redirect the user to a success page
+                                window.location.href = response.redirect_url;
+                            } else {
+                                // Show an error message
+                                alert(response.message);
+                            }
+                        },
+                        error: function(xhr, errmsg, err) {
+                            // Handle any errors
+                            console.log('Error occurred:', errmsg);
+                        }
+                    });
+                });
+            });
+        </script>
+        
+        
+    </div>
+    <!-- checkout form end -->
+{% endblock %}

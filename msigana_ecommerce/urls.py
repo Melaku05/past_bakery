@@ -19,6 +19,10 @@ urlpatterns = [
     path('contact-us/', include('contact.urls')),
     path('accounts/', include('allauth.urls')),
     path('minerals/', views.minerals, name='minerals'),
+    path('carts/', include('carts.urls')),
+    path('orders/', include('orders.urls')),
+    path('bankpay/', include('bankpay.urls')),
+    path('rewardpay', include('rewardpay.urls')),
 
 ]
 

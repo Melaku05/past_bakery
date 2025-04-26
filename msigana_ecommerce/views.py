@@ -6,7 +6,7 @@ from django.http import JsonResponse
 import os
 
 def home(request):
-    products = Product.objects.all().filter(product_is_available=True)
+    products = Product.objects.filter(product_is_available=True).order_by('-product_modified_date', '-product_created_date')
     context = {
         'products': products
     }

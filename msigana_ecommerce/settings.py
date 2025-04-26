@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'carts.apps.CartsConfig',
+    'orders.apps.OrdersConfig',
+    'bankpay.apps.BankpayConfig',
+    'rewardpay.apps.RewardpayConfig',
 ]
 
 INSTALLED_APPS = [app for app in INSTALLED_APPS if app]
@@ -68,10 +72,20 @@ MIDDLEWARE = [mw for mw in MIDDLEWARE if mw]
 
 
 # DATABASES = {
+<<<<<<< HEAD
 #         'default': {
 #             'ENGINE': 'django.db.backends.sqlite3',
 #             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #         }
+=======
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'pasty_bakeryfupk_pasty_bakery',
+#         'HOST': 'localhost',
+#         'PORT': 3306,
+#         'USER': 'romefupk_pasty_bakery',
+#         'PASSWORD': 'Melaku11@#',
+>>>>>>> d4ec03f (update)
 #     }
 
 DATABASES = {

@@ -1,0 +1,222 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<section style=" min-height: 20vh; @media (min-width: 768px) { min-height: 55vh; }">
+     <!-- cart wrapper -->
+     <div class="py-4 container flex gap-3 items-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto">
+        <a href="{% url 'home' %}" class="text-primary text-base font-medium uppercase">
+            <i class="fas fa-home"></i>
+        </a>
+        <span class="text-sm text-gray-400"><i class="fas fa-chevron-right"></i></span>
+    </div>
+     <div class="py-4 container gap-3 items-center px-0 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto ">
+        {% if not cart_items %}
+        <h2 class="text-center">Your shopping cart is Empty</h2>
+        <br>
+        <div class="text-center min-h-full">
+            <a href="{% url 'store' %}" class="btn btn-primary">Continue shopping</a>
+        </div>
+          <header class="section-heading">
+                <h2
+                  class="text-2xl md:text-3xl font-medium text-gray-800 uppercase mb-6 mt-4 px-6 md:px-0"
+                >
+                  recomended for you
+                </h2>
+              </header>
+                <!-- product wrapper -->
+                 <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 2xl:gap-3  mb-6 lg:mb-8">
+                  {% for product in most_liked_products %}
+                  <div class="flex flex-col">
+                      <div class="m-2 bg-white shadow-md rounded-lg overflow-hidden flex-grow">
+                          <a href="{{product.get_store_url}}" class="relative">
+                            <div class="w-full h-32 2xl:h-64 overflow-hidden relative">
+                              {% with product.get_main_image as main_image %}
+                              {% if main_image %}
+                                  <img class="w-full h-full object-cover" src="{{ main_image.image.url }}" alt="{{ product.product_name }}">
+                                  <div class="absolute inset-0 flex items-center justify-center">
+                                      <span class="text-red-500 text-lg md:text-2xl font-thin p-2 rounded"><i class="fas fa-star"></i> tanabeles</span>
+                                  </div>
+                              {% endif %}
+                              {% endwith %}
+                          </div>
+                          </a>
+                          <div class="sm:p-2 pl-2  2xl:pl-6 md:pt-0 md:pb-1">
+                              <a href="{{product.get_store_url}}" class="block text-base lg:text-sm  xl:text-lg font-semibold text-gray-800 hover:text-blue-600">{{ product.product_name|slice:":16"|capfirst }}</a>
+                              <div class="my-0 2xl:my-2 text-blue-600 text-sm md:text-base">
+                                  {% load price_filters%}
+                                  {{ product.default_price }} br
+                              </div>
+                              <div class="flex items-center">
+                                <div class="flex gap-1 text-xs md:text-sm text-yellow-400">
+                                    {% for i in "12345"|make_list %}
+                                        {% if i|add:0 <= product.average_rating|add:0 %}
+                                            <span class="text-yellow-400"><i class="fas fa-star rating"></i></span>
+                                        {% else %}
+                                            <span class=""><i class="far fa-star rating"></i></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="text-xs text-gray-500 ml-3">({{ product.review_count }} Reviews)</div>
+                            </div>
+                          </div>
+                          <div class="bg-blue-600  hover:text-purple-400 text-center py-2 rounded-b mt-1">
+                              <a href="{{product.get_store_url}}" class="text-white  w-full inline-block">Show Details</a>
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div> 
+        {% else %}
+     <div class="container lg:grid grid-cols-12 gap-6 items-start pb-16 pt-4 ">
+        <!-- product cart -->
+        <div class="xl:col-span-9 lg:col-span-8">
+            <!-- cart title -->
+            <div class="bg-gray-200 py-2 pl-12 pr-20 xl:pr-28 mb-4 hidden md:flex">
+                <p class="text-gray-600 text-center">Product</p>
+                <p class="text-gray-600 text-center ml-auto mr-16 xl:mr-24">Quantity</p>
+                <p class="text-gray-600 text-center">Total</p>
+            </div>
+            <!-- cart title end -->
+
+            <!-- shipping carts -->
+            <div class="space-y-4">
+                {% for cart_item in cart_items %}
+                <!-- single cart -->
+                <div
+                    class="flex items-center md:justify-between gap-4 md:gap-6 p-4 border border-gray-200 rounded flex-wrap md:flex-nowrap">
+                    <!-- cart image -->
+                    <div class="w-32 flex-shrink-0">
+                        {% with cart_item.product.get_main_image as main_image %}
+                                        {% if main_image %}
+                                            <img src="{{ main_image.image.url }}" class="w-ful">
+                                        {% endif %}
+                                        {% endwith %}
+                    </div>
+                    <!-- cart image end -->
+                    <!-- cart content -->
+                    <div class="md:w-1/3 w-full">
+                        <h2 class="text-gray-800 mb-3 xl:text-xl textl-lg font-medium uppercase">
+                            <a href="{{ cart_item.product.get_store_url }}">
+                            {{ cart_item.product.product_name }}</a>
+                        </h2>
+                        <p class="text-primary font-semibold">{{cart_item.selected_price}} br</p>
+                        <p class="text-primary font-semibold">{{cart_item.selected_size}}</p>
+                        <p class="text-primary font-semibold">{{cart_item.selected_color}}</p>
+
+                        <p class="text-gray-500">{% if cart_item.variations.all %}
+                            {% for item in cart_item.variations.all %}
+                            {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br>
+
+                            {% endfor %}
+                            {% endif %}</p>
+                    </div>
+                    <!-- cart content end -->
+                    <!-- cart quantity -->
+                    <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300">
+                        <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none"> <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"
+                                               class="btn btn-light" type="button" id="button-minus"> <i
+                                                    class="fa fa-minus"></i> </a></div>
+                        <div class="h-8 w-10 flex items-center justify-center">{{ cart_item.quantity }}</div>
+                        <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none"> <form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
+                            {% csrf_token %}
+                            {% for item in cart_item.variations.all %}
+                            <input type="hidden" name="{{ item.variation_category | lower }}"
+                                   value="{{ item.variation_value | capfirst }}">
+                            {% endfor %}
+                            <a href="{% url 'increase_cart_item' cart_item.product.id cart_item.id %}"class="btn btn-light custom-button" 
+                                    id="button-plus"><i
+                                    class="fa fa-plus"></i></a>
+                        </form></div>
+                    </div>
+                    <!-- cart quantity end -->
+                    <div class="ml-auto md:ml-0">
+                        <p class="text-primary text-lg font-semibold">{{cart_item.each_product_total}}br</p>
+                    </div>
+                    <div class="text-gray-600 hover:text-primary cursor-pointer">
+                        <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onClick="return confirm('Are you want to delete this item">
+                        <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- single cart end -->
+                {% endfor %}
+            </div>
+            <div class="mt-8">
+            <a href="{% url 'store' %}" class="bg-blue-600 border border-primary  text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-blue-700
+            hover:text-primary transition text-sm w-2/3 md:w-1/3  text-center hidden md:inline ">
+            Continue Shopping
+           </a>
+            </div>
+            <!-- shipping carts end -->
+        </div>
+        <!-- product cart end -->
+        <!-- order summary -->
+        <div class="xl:col-span-3 lg:col-span-4 border border-gray-200 px-4 py-4 rounded mt-6 lg:mt-0">
+            <a href="{% url 'store' %}" class="bg-blue-600 border border-primary text-white px-4 py-3 block md:hidden font-medium rounded-md uppercase hover:bg-blue-700
+            hover:text-primary transition text-sm w-full  text-center">
+            Continue Shopping
+           </a>
+            <h4 class="text-gray-800 text-lg mb-4 font-medium uppercase pt-8">ORDER SUMMARY</h4>
+            <div class="space-y-1 text-gray-600 pb-3 border-b border-gray-200">
+                <div class="flex justify-between font-medium">
+                    <p>Subtotal</p>
+                    <p>{{total}} br</p>
+                </div>
+                <div class="flex justify-between">
+                    <p>Delivery</p>
+                    <p>Free (Only in Addis Ababa)</p>
+                </div>
+            </div>
+            <div class="flex justify-between my-3 text-gray-800 font-semibold uppercase">
+                <h4>Total</h4>
+                <h4>{{total}} br</h4>
+            </div>
+
+            <!-- searchbar -->
+            {% comment %} <div class="flex mb-5">
+                <input type="text"
+                    class="pl-4 w-full border border-r-0 border-primary py-2 px-3 rounded-l-md focus:ring-primary focus:border-primary text-sm"
+                    placeholder="Coupon">
+                <button type="submit"
+                    class="bg-pink-800 border border-primary text-white px-5 font-medium rounded-r-md hover:bg-pink-400 hover:text-primary transition text-sm font-roboto">
+                    Apply
+                </button>
+            </div> {% endcomment %}
+            <!-- searchbar end -->
+
+            {% comment %} <form id="payment-form">
+                {% csrf_token %}
+                <!-- Add your input fields here, e.g., total amount -->
+                <input type="hidden" name="totalAmount" value="{{ total }}">
+                <!-- Add other required input fields -->
+                
+                <!-- Submit button -->
+                <button type="submit" class="bg-green-600 border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-green-700 hover:text-primary transition text-sm w-full block text-center">Proceed to Payment</button>
+            </form> {% endcomment %}
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'create_order' %}" class="bg-green-600 border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-green-500
+             hover:text-primary transition text-sm w-full block text-center">
+                Process to checkout
+            </a>
+            {% else %}
+            <a href="{% url 'account_login' %}" class="bg-green-600 border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-green-500
+            hover:text-primary transition text-sm w-full block text-center">
+                Process to checkout
+            </a>
+            {% endif %}
+           
+            <!-- checkout end -->
+        </div>
+        <!-- order summary end -->
+    </div>
+    {% endif %}
+</div>
+    <!-- cart wrapper end -->
+    <!-- Your HTML content -->
+    
+    
+</body>
+</html>
+
+</section>
+{% endblock %}

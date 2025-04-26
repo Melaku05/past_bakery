@@ -39,7 +39,6 @@ class Color(models.Model):
 
 class Product(models.Model):
     product_name = models.CharField(max_length=150, unique=True)
-    product_brand = models.CharField(max_length=150, blank=True,default='Custom')
     product_slug = models.SlugField(max_length=150, unique=True)
     product_description = QuillField()
     product_stock = models.IntegerField(blank=True, null=True)
@@ -207,17 +206,9 @@ def delete_old_image_on_update(sender, instance, **kwargs):
 
 class SizeVariation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=7, decimal_places=2,default=0.00)
-    color = models.ManyToManyField(Color, blank=True) 
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, blank=True, null=True)
 
-    def clean(self):
-        if not isinstance(self.price, Decimal):
-            raise ValidationError("Please insert number only.")
-        if self.price < 1:
-            raise ValidationError("Price should be greater than or equal to 1.")
-        if self.price >= Decimal('1000000.00'):
-            raise ValidationError("Please insert less than 999999.99.")
+    color = models.ManyToManyField(Color, blank=True, null=True) 
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -235,7 +226,7 @@ class SizeVariation(models.Model):
                 colors = ', '.join([color.name for color in self.color.all()])
             except Exception as e:
                 print(f"Exception occurred while accessing colors: {e}")
-        return f"{self.product.product_name} - {colors} - {self.size.name} - {self.price}" 
+        return f"{self.product.product_name} - {colors} - {self.size.name}" 
     # def __str__(self):
     #     print("Inside __str__ method of SizeVariation")
     #     return f"{self.product.product_name} - {', '.join([color.name for color in self.color.all()])} - {self.size.name} - {self.price}" 

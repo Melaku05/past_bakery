@@ -20,11 +20,11 @@
         <i class="fas fa-home"></i>
     </a>
     <span class="text-sm text-gray-400"><i class="fas fa-chevron-right"></i></span>
-    <a href="{{single_product.category.get_url}}" class="text-primary text-base font-medium capitalize">
+    <a href="{{single_product.category.get_url}}" class="text-primary text-base font-medium uppercase">
         {{single_product.category}}
     </a>
     <span class="text-sm text-gray-400"><i class="fas fa-chevron-right"></i></span>
-    <p class="text-blue-600 font-medium capitalize" style="white-space: nowrap;"> {{ single_product.get_short_name|capfirst }}</p>
+    <p class="text-blue-600 font-medium uppercase " style="white-space: nowrap;"> {{ single_product.get_short_name|capfirst }}</p>
 </div>
 <div class="container pt-4 pb-6 grid lg:grid-cols-2 gap-6 items-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto">
     <div>
@@ -32,13 +32,13 @@
             <div style="position: relative; text-align: center;">
                 <img id="main-img" src="{{ main_image.image.url }}" class="max-w-full  lg:max-h-[340px] xl:max-h-[390px] 2xl:max-h-[420px]">
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 30px; font-weight: 300; color: silver; font-family: 'Pacifico', cursive;">
-                    <i class="fas fa-star"></i> Rome Furniture
+                    <i class="fas fa-star"></i> Tanabeles
                 </div>
                 <div class="flex justify-end absolute bottom-2 right-2 space-x-2">
 
                     <!-- Share button -->
                     <div class="mr-2 md:mr-4">
-                        <div class="w-14 h-14 bg-slate-900 rounded-full flex items-center justify-center">
+                        <div class="w-14 h-14 bg-slate-600 rounded-full flex items-center justify-center">
                             <button onclick="shareProduct()">
                                 <i class="fas fa-share-alt text-white text-2xl"></i>
                             </button>
@@ -46,6 +46,19 @@
                     </div>
                         <!-- Heart button -->
 {% load socialaccount %}
+<div>
+    <div id="product-container" class="w-14 h-14 text-white rounded-full flex items-center justify-center {% if liked %} bg-red-500 {% else %} bg-slate-600 {% endif %}">
+        {% if user.is_authenticated %}
+        <button id="like-button" class="like-button" data-product-slug="{{ single_product.product_slug }}" data-liked="{{ liked|lower }}">
+            <i id="heart-icon" class="fas fa-heart text-2xl"></i>
+        </button>
+        {% else %}
+        <a id="like-button" href="/accounts/login/">
+            <i id="heart-icon" class="fas fa-heart text-2xl"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
         
 </div>
 </div>
@@ -71,6 +84,9 @@
     </button>
     {% endif %}
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function slideImages(direction) {
     const totalImages = $('.single-img').length;
@@ -106,13 +122,36 @@ function slideImages(direction) {
 
 
 
+{% comment %} <script>
+    const images = document.querySelectorAll('.single-img');
+    const totalImages = images.length;
+
+    let currentIndex = 0;
+
+    function slideImages(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        } else if (currentIndex > totalImages - 5) {
+            currentIndex = totalImages - 5;
+        }
+        images.forEach((image, index) => {
+            if (index >= currentIndex && index < currentIndex + 5) {
+                image.parentElement.classList.remove('hidden');
+            } else {
+                image.parentElement.classList.add('hidden');
+            }
+        });
+    }
+</script> {% endcomment %}
+
 </div>
 </div>
         <!-- product image end -->
         <!-- product content -->
         <div>
             
-            <h2 class="md:text-3xl text-2xl font-medium md:mb-2 capitalize">{{single_product.product_name}}</h2>
+            <h2 class="md:text-3xl text-2xl font-medium uppercase md:mb-2">{{single_product.product_name}}</h2>
             
             <div class="flex flex-col-2 gap-4">
                 <div class="w-1/2">
@@ -124,6 +163,17 @@ function slideImages(direction) {
                   
                       {% load range_filter custom_filters %}
 
+                      <div class="flex items-center mb-0 md:mb-2">
+                          <div class="flex gap-1 text-xs md:text-sm text-yellow-400">
+                              {% for i in average_rating|to_range %}
+                                  <span><i class="fas fa-star rating" data-rating="{{ i|add:'1' }}"></i></span>
+                              {% endfor %}
+                              {% for i in 5|subtract:average_rating|to_range %}
+                                  <span><i class="far fa-star rating" data-rating="{{ i|add:average_rating|add:'1' }}"></i></span>
+                              {% endfor %}
+                          </div>
+                          <div class="text-xs text-gray-500 ml-3">({{ reviews_count }} Reviews)</div>
+                      </div>
 <script>
     $(document).ready(function() {
         var rateProductUrl = "/store/rate_product/{{single_product.product_slug}}/";
@@ -172,31 +222,23 @@ function slideImages(direction) {
                      <span class="text-sm md:text-base text-green-600">In Stock</span>
                     {% endif %}
                 </p>
-                <p class="space-x-2">
-                    <span class="text-sm md:text-base text-gray-800 font-semibold">Brand: </span>
-                    <span class="text-sm md:text-base text-gray-600">{{single_product.product_brand|capfirst}}</span>
-                </p>
+               
                 <p class="space-x-2">
                     <span class="text-sm md:text-base text-gray-800 font-semibold">Category: </span>
                     <span class="text-sm md:text-base text-gray-600">{{single_product.category|capfirst}}</span>
                 </p>
-                 {% comment %} <p class="space-x-0 md:space-x-2">
-                    
-                    <span class="text-sm md:text-base text-gray-800 font-semibold">Price: </span>
-                    {% load price_filters %}
-                <span id="product-price" class="text-gray-500 text-base ">Loading ... birr</span>
-                </p>  {% endcomment %}
-                <div class="flex items-center">
-                    <svg class="h-4 md:h-6" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path
-                            d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" />
-                    </svg>
-                    <span class="ml-2 text-gray-600">{{ single_product.product_views_count }} Views</span>
-                </div>
+              
             </div>
         </div>
         <div class="w-1/2">
+            <div class="flex items-center">
+                <svg class="h-4 md:h-6" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" />
+                </svg>
+                <span class="ml-2 text-gray-600">{{ single_product.product_views_count }} Views</span>
+            </div>
                    
 {% if size_variations %}
 <div class="mt-2 md:mt-2">
@@ -215,7 +257,12 @@ function slideImages(direction) {
     </div>
 </div>
 {% endif %}
-
+<div class="mt-2 md:mt-2">
+    <h3 class="text-sm md:text-base text-gray-800 font-semibold mb-1">Color</h3>
+    <div id="color-container" class="flex flex-row flex-wrap items-center gap-2">
+        <!-- Color radio buttons will be inserted here by JavaScript -->
+    </div>
+</div>
 </div>
 </div> 
        <!-- add to cart button -->
@@ -223,19 +270,20 @@ function slideImages(direction) {
                 {% if single_product.product_stock <= 0 %}
                 <span class="text">out of stock</span>
                 {% else %}
+                <form action="{% url 'add_cart' single_product.id %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" id="selected-price" name="selected_price" value="">
                     <input type="hidden" id="selected-size" name="selected_size" value="">
                     <input type="hidden" id="selected-color" name="selected_color" value="">
                     
 
-                {% comment %} <button type="submit" class="bg-blue-700 border border-primary text-white px-3 xl:px-8 py-2 font-medium rounded uppercase 
+                <button type="submit" class="bg-blue-700 border border-primary text-white px-3 xl:px-8 py-2 font-medium rounded uppercase 
                 hover:bg-blue-500 hover:text-primary transition text-sm flex items-center">
                 <span class="mr-2"><i class="fas fa-shopping-bag"></i></span> Add to cart
-            </button> {% endcomment %}
+            </button>
             </form>
                 {% endif %}
-                <a href="tel:{{single_product.product_phone}}" class="bg-slate-400 border hover:bg-black  border-gray-300 text-white px-3 xl:px-8 py-2 font-medium rounded uppercase 
+                <a href="tel:{{single_product.product_phone}}" class="bg-red-600 border hover:bg-red-500 border-gray-300 text-white px-3 xl:px-8 py-2 font-medium rounded uppercase 
                 text-sm flex items-center">
                     <span class="mr-1 xl:mr-2 text-blue-500 text-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512">
@@ -265,45 +313,59 @@ function slideImages(direction) {
         </div>
     </div>
     <div class="container pb-8 items-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto">
-        <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium ">
+        <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">
             Product Details
         </h3>
         <div class="lg:w-4/5 xl:w-3/5 pt-6">
-            <p class="volkhov">
+            <p>
                 {{single_product.product_description.html|safe}}
             </p>
         </div>
     </div>
     
+    <a href="{{advertizement_third.advertizement_third_url}}">
+        <img src="{{ advertizement_third.advertizement_third_image.url }}" class=" w-full  px-2 sm:px-8 md:px-16 lg:px-32 2xl:px-64 object-cover" />
+      </a>
     {% if related_products %}
     <div class="container pb-8 items-center px-0 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto">
-        <h2 class="text-2xl md:text-3xl font-medium text-gray-800 uppercase  pt-2 my-6"Related Minerals</h2>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-1 md:gap-6">
+        <h2 class="text-2xl md:text-3xl font-medium text-gray-800 uppercase  pt-2 my-6">related products</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 sm:grid-cols-2 gap-1 md:gap-6">
             {% for product in related_products %}
-            <div class="flex flex-col card">
+            <div class="flex flex-col">
                 <div class="m-2 bg-white shadow-md rounded-lg overflow-hidden flex-grow">
                     <a href="{{product.get_store_url}}" class="relative">
-                      <div class="w-full h-64 2xl:h-80 overflow-hidden relative">
+                      <div class="w-full h-32 2xl:h-64 overflow-hidden relative">
                         {% with product.get_main_image as main_image %}
                         {% if main_image %}
                             <img class="w-full h-full object-cover" src="{{ main_image.image.url }}" alt="{{ product.product_name }}">
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-slate-400 text-lg md:text-2xl font-thin p-2 rounded"><i class="fas fa-star"></i> Rome Furniture</span>
+                                <span class="text-red-500 text-lg md:text-2xl font-thin p-2 rounded"><i class="fas fa-star"></i> tanabeles</span>
                             </div>
                         {% endif %}
                         {% endwith %}
                     </div>
                     </a>
                     <div class="sm:p-2 pl-2  2xl:pl-6 md:pt-0 md:pb-1">
-                        <a href="{{product.get_store_url}}" class="block text-base lg:text-sm  xl:text-lg font-semibold text-gray-800 hover:text-blue-600 capitalize">{{ product.product_name|slice:":24"|capfirst }}</a>
-                        {% comment %} <div class="my-0 2xl:my-2 text-black text-sm md:text-base">
+                        <a href="{{product.get_store_url}}" class="block text-base lg:text-sm  xl:text-lg font-semibold text-gray-800 hover:text-blue-600">{{ product.product_name|slice:":16"|capfirst }}</a>
+                        <div class="my-0 2xl:my-2 text-blue-600 text-sm md:text-base">
                             {% load price_filters%}
-                            {{ product.default_price }}
-                        </div> {% endcomment %}
-                      
+                            {{ product.default_price }} br
+                        </div>
+                        <div class="flex items-center">
+                          <div class="flex gap-1 text-xs md:text-sm text-yellow-400">
+                              {% for i in "12345"|make_list %}
+                                  {% if i|add:0 <= product.average_rating|add:0 %}
+                                      <span class="text-yellow-400"><i class="fas fa-star rating"></i></span>
+                                  {% else %}
+                                      <span class=""><i class="far fa-star rating"></i></span>
+                                  {% endif %}
+                              {% endfor %}
+                          </div>
+                          <div class="text-xs text-gray-500 ml-3">({{ product.review_count }} Reviews)</div>
+                      </div>
                     </div>
-                    <div class="bg-slate-400  hover:text-purple-400 text-center py-2 rounded-b mt-1">
-                        <a href="{{product.get_store_url}}" class="text-white  w-full inline-block text-sm md:text-lg capitalize">Show Details</a>
+                    <div class="bg-blue-600  hover:text-purple-400 text-center py-2 rounded-b mt-1">
+                        <a href="{{product.get_store_url}}" class="text-white  w-full inline-block">Show Details</a>
                     </div>
                 </div>
             </div>
@@ -313,7 +375,59 @@ function slideImages(direction) {
     </div>
     {% endif %}
     <!-- related products end -->
-
+    <!-- Heart button -->
+<div class="container pb-8 items-center px-0 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto">
+    <header class="section-heading">
+        <h2
+          class="text-2xl md:text-3xl font-medium text-gray-800 uppercase pt-4 mb-4 mt-4 px-6 md:px-0"
+        >
+          recomended for you
+        </h2>
+      </header>
+        <!-- product wrapper -->
+         <div id="product-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 2xl:gap-3  lg:pr-16 xl:pr-32 2xl:pr-64 mb-6 lg:mb-8">
+          {% for product in most_liked_products %}
+          <div class="flex flex-col">
+              <div class="m-2 bg-white shadow-md rounded-lg overflow-hidden flex-grow">
+                  <a href="{{product.get_store_url}}" class="relative">
+                    <div class="w-full h-32 2xl:h-64 overflow-hidden relative">
+                      {% with product.get_main_image as main_image %}
+                      {% if main_image %}
+                          <img class="w-full h-full object-cover" src="{{ main_image.image.url }}" alt="{{ product.product_name }}">
+                          <div class="absolute inset-0 flex items-center justify-center">
+                              <span class="text-red-500 text-lg md:text-2xl font-thin p-2 rounded"><i class="fas fa-star"></i> tanabeles</span>
+                          </div>
+                      {% endif %}
+                      {% endwith %}
+                  </div>
+                  </a>
+                  <div class="sm:p-2 pl-2  2xl:pl-6 md:pt-0 md:pb-1">
+                      <a href="{{product.get_store_url}}" class="block text-base lg:text-sm  xl:text-lg font-semibold text-gray-800 hover:text-blue-600">{{ product.product_name|slice:":16"|capfirst }}</a>
+                      <div class="my-0 2xl:my-2 text-blue-600 text-sm md:text-base">
+                          {% load price_filters%}
+                          {{ product.default_price }} br
+                      </div>
+                      <div class="flex items-center">
+                        <div class="flex gap-1 text-xs md:text-sm text-yellow-400">
+                            {% for i in "12345"|make_list %}
+                                {% if i|add:0 <= product.average_rating|add:0 %}
+                                    <span class="text-yellow-400"><i class="fas fa-star rating"></i></span>
+                                {% else %}
+                                    <span class=""><i class="far fa-star rating"></i></span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="text-xs text-gray-500 ml-3">({{ product.review_count }} Reviews)</div>
+                    </div>
+                  </div>
+                  <div class="bg-blue-600  hover:text-purple-400 text-center py-2 rounded-b mt-1">
+                      <a href="{{product.get_store_url}}" class="text-white  w-full inline-block">Show Details</a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+        </div>
 
     <script>
         $(document).ready(function() {
@@ -459,7 +573,7 @@ function slideImages(direction) {
             const categorySlug = "{{ single_product.category.get_url }}";
             const productSlug = "{{ single_product.product_slug }}";
     
-            const productUrl = `http://138.197.182.68${categorySlug}${productSlug}`;
+            const productUrl = `https://tanabeles.com${categorySlug}${productSlug}`;
     
             if (navigator.share) {
                 navigator.share({
@@ -496,8 +610,14 @@ function slideImages(direction) {
 </script> 
 <div class=" items-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-9xl 2xl:mx-auto mb-4">
     <a href="{% url 'home' %}"
-        class="inline-block bg-slate-900 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-200">
+        class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-200">
         <i class="fas fa-arrow-left"></i> Back to shop
+    </a>
+</div>
+<div class="fixed bottom-0 right-0 mb-24 mr-0 z-50 ">
+    <a href="tel:{{ single_product.product_phone }}"
+        class="text-3xl text-white mr-2 md:mr-6 rounded-full bg-white  transition-colors duration-200 flex items-center justify-center">
+        <img src="{% static 'images/phone-call.png' %}" alt="Phone Call" class="mr-0 w-14">
     </a>
 </div>
 

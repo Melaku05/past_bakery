@@ -7,26 +7,6 @@ from django import forms
 from msigana_ecommerce.admin_site import admin_site
 
 
-class SizeVariationInlineFormSet(BaseInlineFormSet):
-    def clean(self):
-        super().clean()
-        for form in self.forms:
-            if form.cleaned_data and form.cleaned_data['price'] < 1:
-                raise forms.ValidationError("Price should be greater than or equal to 1.")
-class SizeVariationInline(nested_admin.NestedTabularInline):
-    model = SizeVariation
-    formset = SizeVariationInlineFormSet
-    fields = ('size', 'price', 'color')
-
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == "color":
-            kwargs["initial"] = [Color.objects.get_or_create(name='White')[0]]
-        return super().formfield_for_manytomany(db_field, request, **kwargs)
-
-    def get_extra(self, request, obj=None, **kwargs):
-        extra = 1 if obj is None else 0
-        return extra
-
 
 class ProductImageInline(nested_admin.NestedTabularInline):
     model = ProductImage
@@ -40,21 +20,17 @@ class ProductImageInline(nested_admin.NestedTabularInline):
 class ProductAdmin(nested_admin.NestedModelAdmin):
     prepopulated_fields = {'product_slug': ('product_name',)}
     list_display = (
-        'product_name','likes_count','product_phone', 'product_stock', 'category',
+        'product_name','product_phone', 'product_stock', 'category',
         'product_created_date', 'product_modified_date', 'product_is_available',
-        'display_sizes'  # Custom methods for display
+     
     )
-    inlines = [SizeVariationInline, ProductImageInline]
+    inlines = [ProductImageInline]
     readonly_fields = ['product_owner']
 
     class Media:
         js = ('js/admin.js',)
 
-    def display_colors(self, obj):
-        return ", ".join([color.name for size_var in obj.sizevariation_set.all() for color in size_var.color.all() if color and color.name])
-    def display_sizes(self, obj):
-        return ", ".join([size_var.size.name for size_var in obj.sizevariation_set.all() if size_var.size])
-    
+
     def likes_count(self, obj):
         return obj.likes.count()
     likes_count.short_description = 'Likes Count'
@@ -94,19 +70,19 @@ class ProductAdmin(nested_admin.NestedModelAdmin):
     def render_change_form(self, request, context, *args, **kwargs):
         return super().render_change_form(request, context, *args, **kwargs)
     
-class ColorAdmin(admin.ModelAdmin):
-    list_display = ('name', )
+# class ColorAdmin(admin.ModelAdmin):
+#     list_display = ('name', )
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+#     def has_delete_permission(self, request, obj=None):
+#         return False
     
-class SizeAdmin(admin.ModelAdmin):
-    list_display = ('name', )
+# class SizeAdmin(admin.ModelAdmin):
+#     list_display = ('name', )
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+#     def has_delete_permission(self, request, obj=None):
+#         return False
     
 admin_site.register(Product, ProductAdmin)
-admin_site.register(Color, ColorAdmin)
-admin_site.register(Size, SizeAdmin)
+# admin_site.register(Color, ColorAdmin)
+# admin_site.register(Size, SizeAdmin)
 

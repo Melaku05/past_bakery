@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title%} Your ordered from Tanabeles E-commerce, Addis Ababa Ethiopia
+{% endblock %}
+{% block content %}
+    <!-- checkout form -->
+    <div class="container mx-auto lg:w-2/3  2xl:w-2/5 pt-4 pb-6 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-32 2xl:max-w-4xl  md:mt-24">
+       
+        <form method="POST" action="{% url 'create_order' %}">
+            {% csrf_token %}
+            <h3 class="text-lg font-medium capitalize mb-4">
+               Finsh your order
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label for="id_first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                    <input id="id_first_name" type="text" name="first_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ request.user.first_name|default:'' }}">
+                </div>
+                <div>
+                    <label for="id_last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <input id="id_last_name" type="text" name="last_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ request.user.last_name|default:'' }}">
+                </div>
+               
+                <div>
+                    <label for="id_order_address" class="block text-sm font-medium text-gray-700">Address (ex. Ayat Tafo)</label>
+                    <input id="id_order_address" type="text" name="order_address" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ request.user.address|default:'' }}">
+                </div>
+                <div>
+                    <label for="id_first_name" class="block text-sm font-medium text-gray-700">Referral Code</label>
+                    <span class="text-sm text-gray-500"> (Optional)</span>
+                    <input id="id_first_name" type="text" name="referral_code" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ form.referral_code.value|default:'' }}">
+                </div>
+                <button type="submit" class="bg-blue-500 border border-primary text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-blue-800
+                hover:text-primary transition text-sm w-full block text-center">Submit order</button>
+            </div>
+        </form>
+    </div>
+    <!-- checkout form end -->
+{% endblock %}
