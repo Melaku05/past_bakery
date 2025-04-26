@@ -261,3 +261,4 @@ node_modules/
 
 # End of https://www.toptal.com/developers/gitignore/api/django,pycharm
 orders/credentials/*.json
+orders/credentials/*.json
